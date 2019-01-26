@@ -445,12 +445,8 @@ public class SinglyLinkedList<E> implements List<E> {
 				findNode = findNode.getNext();
 			}
 		}
-		// else there are no nodes in the list
-		else {
-			return -1;
-		}
 
-		// if there is an error in this method return 0;
-		return 0;
+		// else there are no nodes in the list or item is null
+		return -1;
 	}
 }

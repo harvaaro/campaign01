@@ -83,6 +83,9 @@ public class SinglyLinkedList<E> implements List<E> {
 	 */
 	private void addSize() {
 		size++;
+
+		// ADDED to make circular list easier
+		verifyTail();
 	}
 
 	/**
@@ -94,6 +97,17 @@ public class SinglyLinkedList<E> implements List<E> {
 		if (size < 0) {
 			size = 0;
 		}
+
+		// ADDED to make circular list easier
+		verifyTail();
+	}
+
+	/**
+	 * ADDED to allow making a circular easy
+	 * Will verify the tail goes to null for the SLL
+	 */
+	public void verifyTail() {
+		tail.setNext(null);
 	}
 
 	/**
@@ -216,7 +230,8 @@ public class SinglyLinkedList<E> implements List<E> {
 				// set the list head and tail to null
 				head.setNext(null);
 				head = null;
-				tail.setNext(null);
+				// from DLL noticed I did not need this line
+//				tail.setNext(null);
 				tail = null;
 
 				// [different from SLL that was uploaded]
@@ -435,9 +450,9 @@ public class SinglyLinkedList<E> implements List<E> {
 			for (int i = 0; i < size; i++) {
 				// if current node matches the item, then return index
 				if (findNode.getData() == item) {
-					System.out.println("indx: " + i);
-					System.out.println("item: " + item);
-					System.out.println("data: " + findNode.getData() + "\n");
+//					System.out.println("indx: " + i);
+//					System.out.println("item: " + item);
+//					System.out.println("data: " + findNode.getData() + "\n");
 					return i;
 				}
 

@@ -9,7 +9,6 @@ public class SolitaireEncrypt {
 
 	public SolitaireEncrypt(String deck) {
 		this.deckPath = deck;
-		System.out.println("deckPath: " + deckPath);
 	}
 
 	String execute(String decString) {

@@ -18,20 +18,36 @@ public class KeyGeneration {
 	// create a new CLL to store the deck values that will be the key
 	private CircularlyLinkedList<Integer> deckKey = new CircularlyLinkedList<>();
 
+	boolean debugPrint = true;
+
 	/**
 	 * Contrcustor to do all the appropriate methods
 	 * to get the needed generated key for de/encrypt
 	 * @param deckLocation the deck file path
 	 */
 	public KeyGeneration(String deckLocation) {
+		// split the file to a usable list
 		deckSplit(deckLocation);
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.println("Input: " + deckLocation);
+			System.out.print("Prior: ");
+			deckKey.printList();
+		}
+
+		// run the 5 steps
 		step1Swap27();
 		step2Move28();
 		step3TripleCut();
-		deckKey.printList();
-		System.out.println("Size: " + deckKey.size());
-		System.out.println("First: " + deckKey.first());
-		System.out.println("Last: " + deckKey.last());
+		step4Bottom();
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.println("Size: " + deckKey.size());
+			System.out.println("First: " + deckKey.first());
+			System.out.println("Last: " + deckKey.last());
+		}
 	}
 
 	/**
@@ -96,6 +112,12 @@ public class KeyGeneration {
 	 */
 	private void step1Swap27() {
 		swapWithNext(27);
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.print("Step1: ");
+			deckKey.printList();
+		}
 	}
 
 	/**
@@ -104,8 +126,19 @@ public class KeyGeneration {
 	private void step2Move28() {
 		swapWithNext(28);
 		swapWithNext(28);
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.print("Step2: ");
+			deckKey.printList();
+		}
 	}
 
+	/**
+	 * Will swap the group of number before the first joker
+	 * and the ones after the second joker in the list
+	 * Leaving whatever is inbetween the 2 jokers
+	 */
 	private void step3TripleCut() {
 		// get the locations of both jokers
 		int index27 = deckKey.indexOf(27);
@@ -177,6 +210,37 @@ public class KeyGeneration {
 			for (int i = 0; i < cut1Size; i++) {
 				deckKey.addLast(cut1Top.removeFirst());
 			}
+		}
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.print("Step3: ");
+			deckKey.printList();
+		}
+	}
+
+	private void step4Bottom() {
+		// get the bottom value of the list
+		int deckLast = deckKey.removeLast();
+
+		// if the last value is either joker set to 27
+		if (deckLast == 27 || deckLast == 28) {
+			deckLast = 27;
+		}
+
+		// shift values from top to bottom in the
+		// quantity of what was on the bottom
+		for (int i = 0; i < deckLast; i++) {
+			deckKey.addLast(deckKey.removeFirst());
+		}
+
+		// readd the original value back to the end
+		deckKey.addLast(deckLast);
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.print("Step4: ");
+			deckKey.printList();
 		}
 	}
 }

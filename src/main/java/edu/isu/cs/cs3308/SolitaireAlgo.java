@@ -80,7 +80,7 @@ public class SolitaireAlgo {
 		// iterate for the list size until all values have been coded
 		for (int i = 0; i < listSize; i++) {
 			if (doEncode) {
-				tempNum = codeMessage.removeFirst() + codeKey.get(i);
+				tempNum = codeMessage.removeFirst() + codeKey.removeFirst();
 				if (tempNum > 26) {
 					tempNum -= 26;
 				}
@@ -88,7 +88,7 @@ public class SolitaireAlgo {
 			else {
 				// get the two numbers to do compare
 				int tempUpper = codeMessage.removeFirst();
-				int tempLower = codeKey.get(i);
+				int tempLower = codeKey.removeFirst();
 
 				// do adjustment to upper number if needed
 				if (tempUpper <= tempLower) {

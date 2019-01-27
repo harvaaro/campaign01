@@ -9,11 +9,11 @@ public class SolitaireEncrypt {
 
 	String execute(String decString) {
 		// create the needed setup for doing de/encoding
-//		SolitaireAlgo theDeck = new SolitaireAlgo(decString, deckPath);
+		SolitaireAlgo theDeck = new SolitaireAlgo(decString, deckPath);
 
 		// This test works based off of the information from this page:
 		// https://powcoder.com/2018/09/28/java%e4%bb%a3%e5%86%99-programming-assignment-1-solitaire-encryption/
-		SolitaireAlgo theDeck = new SolitaireAlgo("you'll never guess this message!", "data/AAdeck01.txt");
+//		SolitaireAlgo theDeck = new SolitaireAlgo("you'll never guess this message!", "data/AAdeck01.txt");
 
 		// This test works based off of the information from this page:
 		// http://csprojectedu.com/2018/02/03/CS112-Simplified-Solitaire-Encryption/

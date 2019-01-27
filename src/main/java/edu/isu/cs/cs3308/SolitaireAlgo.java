@@ -86,7 +86,11 @@ public class SolitaireAlgo {
 		return numList2String(finalCode);
 	}
 
-
+	/**
+	 * Converts a given number list into a string of letters
+	 * @param numList A list of integers to convert to letters
+	 * @return The string of all the letters representing the numbers
+	 */
 	public String numList2String(CircularlyLinkedList<Integer> numList) {
 		// string of list to return
 		String converted = "";
@@ -101,6 +105,11 @@ public class SolitaireAlgo {
 
 			// put that letter into the string
 			converted += numLetter;
+		}
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.println("converted:   " + converted);
 		}
 
 		// return the converted string

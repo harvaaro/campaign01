@@ -9,15 +9,15 @@ public class SolitaireDecrypt {
 
 	String execute(String encString) {
 		// create the needed setup for doing de/encoding
-//		SolitaireAlgo theDeck = new SolitaireAlgo(decString, deckPath);
+		SolitaireAlgo theDeck = new SolitaireAlgo(encString, deckPath);
 
 		// testing decrypt
-		SolitaireAlgo theDeck = new SolitaireAlgo("UKTUMUXRMOSPGVWSADBUHPJSFCMQLR", "data/AAdeck01.txt");
+//		SolitaireAlgo theDeck = new SolitaireAlgo("UKTUMUXRMOSPGVWSADBUHPJSFCMQLR", "data/AAdeck01.txt");
 
 		// testing decrypt
 //		SolitaireAlgo theDeck = new SolitaireAlgo("KKIMEWEASPYNBDS", "data/AAdeck02.txt");
 
-		// return the encoded string
+		// return the decoded string
 		return theDeck.encode(false);
 	}
 }

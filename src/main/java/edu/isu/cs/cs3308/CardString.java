@@ -25,9 +25,9 @@ public class CardString {
 		cleanString(inputString);
 
 		// DEBUG print log for seeing the changes
-		if (debugPrint) {
-			System.out.println("Check: " + numList2String(cardList));
-		}
+//		if (debugPrint) {
+//			System.out.println("Check: " + numList2String(cardList));
+//		}
 	}
 
 	/**
@@ -73,25 +73,5 @@ public class CardString {
 			System.out.print("Ready: ");
 			cardList.printList();
 		}
-	}
-
-	public String numList2String(CircularlyLinkedList<Integer> numList) {
-		// string of list to return
-		String converted = "";
-
-		// size of the list provided
-		int listSize = numList.size();
-
-		// iterate until all numbers have been converted
-		for (int i = 0; i < listSize; i++) {
-			// char of the int as letter
-			char numLetter = (char)(numList.get(i) + 64);
-
-			// put that letter into the string
-			converted += numLetter;
-		}
-
-		// return the converted string
-		return converted;
 	}
 }

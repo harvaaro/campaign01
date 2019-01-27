@@ -10,26 +10,10 @@ public class SolitaireEncrypt {
 	}
 
 	String execute(String decString) {
-		// parse the message as needed for coding
-		CardString theMessage = new CardString(decString);
+		// create the needed setup for doing de/encoding
+		SolitaireAlgo theDeck = new SolitaireAlgo(decString, deckPath);
 
-		// get the linked list from that to use for keygen
-		CircularlyLinkedList<Integer> codeMessage = theMessage.getCardList();
-
-		// generate the key needed for coding
-		KeyGeneration theKey = new KeyGeneration(deckPath, codeMessage.size());
-
-		// get the linked list from the keygen
-		CircularlyLinkedList<Integer> codeKey = theKey.getCodeKey();
-
-		// final list that will store the coded message
-		CircularlyLinkedList<Integer> finalCode = new CircularlyLinkedList<>();
-
-		// string to store the coded message
-		String coded = "";
-
-
-
-		return decString;
+		// return the encoded string
+		return theDeck.encode(true);
 	}
 }

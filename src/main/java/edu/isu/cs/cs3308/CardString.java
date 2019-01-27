@@ -12,14 +12,26 @@ public class CardString {
 	// linked list for use with the algorithm
 	private CircularlyLinkedList<Integer> cardList = new CircularlyLinkedList<>();
 
+	// return the list for use in other areas
+	public CircularlyLinkedList<Integer> getCardList() {
+		return cardList;
+	}
+
 	// bool for whether to show the debug output
-	boolean debugPrint = true;
+	private boolean debugPrint = true;
 
 	// Constructor to get the string to edit
 	public CardString(String inputString) {
 		cleanString(inputString);
 	}
 
+	/**
+	 * Will convert a given string into a list where all letters
+	 * are converted into their appropriate number range 1-26
+	 * no symbols or other characters are converted.
+	 *
+	 * @param string4List string to convert to number list
+	 */
 	private void cleanString(String string4List) {
 		// in a previous class to do the check for letters had
 		// to convert to char array and compared ascii values

@@ -18,15 +18,18 @@ public class KeyGeneration {
 	// create a new CLL to store the deck values that will be the key
 	private CircularlyLinkedList<Integer> deckKey = new CircularlyLinkedList<>();
 
+	// this will be the final key to use for de/encoding
+	private CircularlyLinkedList<Integer> codeKey = new CircularlyLinkedList<>();
+
 	// bool for whether to show the debug output
-	boolean debugPrint = true;
+	private boolean debugPrint = true;
 
 	/**
 	 * Contrcustor to do all the appropriate methods
 	 * to get the needed generated key for de/encrypt
 	 * @param deckLocation the deck file path
 	 */
-	public KeyGeneration(String deckLocation) {
+	public KeyGeneration(String deckLocation, int secretSize) {
 		// split the file to a usable list
 		deckSplit(deckLocation);
 
@@ -38,18 +41,19 @@ public class KeyGeneration {
 		}
 
 		// run the 4 steps
-		step1Swap27();
-		step2Move28();
-		step3TripleCut();
-		step4Bottom();
+//		step1Swap27();
+//		step2Move28();
+//		step3TripleCut();
+//		step4Bottom();
 		// step 5 will be called when we know what size we need
+		generateCodeKey(secretSize);
 
 		// DEBUG print log for seeing the changes
-		if (debugPrint) {
-			System.out.println("Size: " + deckKey.size());
-			System.out.println("First: " + deckKey.first());
-			System.out.println("Last: " + deckKey.last());
-		}
+//		if (debugPrint) {
+//			System.out.println("Size: " + deckKey.size());
+//			System.out.println("First: " + deckKey.first());
+//			System.out.println("Last: " + deckKey.last());
+//		}
 	}
 
 	/**
@@ -278,7 +282,7 @@ public class KeyGeneration {
 		// get the next value from the count
 		int nextValue = deckKey.get(deckCount+1);
 
-		// check to see if it is a joker or not
+		// if it is a joker then repeat algorithm
 		if (nextValue == 27 || nextValue == 28) {
 			step1Swap27();
 			step2Move28();
@@ -288,11 +292,30 @@ public class KeyGeneration {
 		}
 
 		// DEBUG print log for seeing the changes
-		if (debugPrint) {
+//		if (debugPrint) {
 //			System.out.println("Step5: " + deckKey.get(deckCount));
-		}
+//		}
 
 		// return the found number from the list
 		return deckKey.get(deckCount);
+	}
+
+	// get the list needed for the string size of the message
+	private void generateCodeKey(int codeSize) {
+		// iterate through calling step 5 until
+		// the code list is big enough
+		for (int i = 0; i < codeSize; i++) {
+			step1Swap27();
+			step2Move28();
+			step3TripleCut();
+			step4Bottom();
+			codeKey.addLast(step5Card());
+
+			// DEBUG print log for seeing the changes
+			if (debugPrint) {
+				System.out.print("Step5: ");
+				codeKey.printList();
+			}
+		}
 	}
 }

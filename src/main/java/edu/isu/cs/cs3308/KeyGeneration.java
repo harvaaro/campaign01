@@ -6,10 +6,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
-import edu.isu.cs.cs3308.structures.impl.SinglyLinkedList;
 
 /**
- * A class to do all the keygeneration needed for
+ * A class to do all the key generation needed for
  * the Modified Solitaire Algorithm de/encrypt
  *
  * @author Aaron Harvey
@@ -30,7 +29,7 @@ public class KeyGeneration {
 	private boolean debugPrint = false;
 
 	/**
-	 * Contrcustor to do all the appropriate methods
+	 * Constructor to do all the appropriate methods
 	 * to get the needed generated key for de/encrypt
 	 * @param deckLocation the deck file path
 	 */
@@ -166,8 +165,8 @@ public class KeyGeneration {
 		}
 
 		// temporary lists to store the sections that are to be swapped
-		SinglyLinkedList<Integer> cut2End = new SinglyLinkedList<>();
-		SinglyLinkedList<Integer> cut1Top = new SinglyLinkedList<>();
+		CircularlyLinkedList<Integer> cut2End = new CircularlyLinkedList<>();
+		CircularlyLinkedList<Integer> cut1Top = new CircularlyLinkedList<>();
 
 		// if joker2 is not at the end
 		if (joker2end == false) {
@@ -252,25 +251,17 @@ public class KeyGeneration {
 	int step5Num = -1;
 
 	/**
-	 * Will find a number in the list with index of first value
+	 * Will find a number in the list with count from first value
 	 * That number cannot be a joker so will only be a 1-26 value
-	 *
-	 * @return the card to use for the keystream
 	 */
 	private void step5Card() {
-		// get the first value of the list
-		int deckFirst = deckKey.first();
-
 		// counter for how many to search
-		int deckCount = deckFirst;
+		int deckCount = deckKey.first();
 
 		// if the first value is either joker set to 27
 		if (deckCount == 28) {
 			deckCount = 27;
 		}
-
-		// put that value back at the beginning
-//		deckKey.addFirst(deckFirst);
 
 		// value and counted position
 		int countValue = deckKey.get(deckCount);
@@ -289,7 +280,10 @@ public class KeyGeneration {
 		}
 	}
 
-	// get the list needed for the string size of the message
+	/**
+	 * Create the list needed for the string size of the message
+	 * @param codeSize an int for how big the key needs to be
+	 */
 	public void generateCodeKey(int codeSize) {
 		// iterate through calling step 5 until
 		// the code list is big enough

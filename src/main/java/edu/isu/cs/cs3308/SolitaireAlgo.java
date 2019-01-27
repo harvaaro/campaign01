@@ -34,7 +34,7 @@ public class SolitaireAlgo {
 	}
 
 	/**
-	 * Create all of the necesarry lists to process the coding
+	 * Create all of the necessary lists to process the coding
 	 *
 	 * @param codeString The original message string to de/encode
 	 */

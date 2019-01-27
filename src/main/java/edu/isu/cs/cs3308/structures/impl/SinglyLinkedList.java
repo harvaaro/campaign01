@@ -417,7 +417,9 @@ public class SinglyLinkedList<E> implements List<E> {
 	}
 
 	/**
-	 * For each node in the list, print out its index on a new line
+	 * MODIFIED this to be the spaced version instead of the newline from SLL
+	 * Each value in the list will be printed out with spaces between them
+	 * and then a newline at the end of the list.
 	 */
 	@Override
 	public void printList() {
@@ -428,8 +430,14 @@ public class SinglyLinkedList<E> implements List<E> {
 
 			// iterate though the list, until we reach the end
 			for (int i = 0; i < size; i++) {
-				// print the current nodes data on a new line
-				System.out.println(printNode.getData());
+				// print the current nodes data with a space after it
+				if (i < size-1) {
+					System.out.print(printNode.getData() + " ");
+				}
+				// else on the last value
+				else {
+					System.out.println(printNode.getData());
+				}
 
 				// then get the next node to get data from
 				printNode = printNode.getNext();

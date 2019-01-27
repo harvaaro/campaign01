@@ -40,20 +40,8 @@ public class KeyGeneration {
 			deckKey.printList();
 		}
 
-		// run the 4 steps
-//		step1Swap27();
-//		step2Move28();
-//		step3TripleCut();
-//		step4Bottom();
-		// step 5 will be called when we know what size we need
+		// run all the steps to generate a code key
 		generateCodeKey(secretSize);
-
-		// DEBUG print log for seeing the changes
-//		if (debugPrint) {
-//			System.out.println("Size: " + deckKey.size());
-//			System.out.println("First: " + deckKey.first());
-//			System.out.println("Last: " + deckKey.last());
-//		}
 	}
 
 	/**
@@ -258,13 +246,16 @@ public class KeyGeneration {
 		}
 	}
 
+	// int to use for the step5 recursion
+	int step5Num = -1;
+
 	/**
 	 * Will find a number in the list with index of first value
 	 * That number cannot be a joker so will only be a 1-26 value
 	 *
 	 * @return the card to use for the keystream
 	 */
-	private int step5Card() {
+	private void step5Card() {
 		// get the first value of the list
 		int deckFirst = deckKey.first();
 
@@ -279,25 +270,21 @@ public class KeyGeneration {
 		// put that value back at the beginning
 //		deckKey.addFirst(deckFirst);
 
-		// get the next value from the count
-		int nextValue = deckKey.get(deckCount+1);
+		// value and counted position
+		int countValue = deckKey.get(deckCount);
 
 		// if it is a joker then repeat algorithm
-		if (nextValue == 27 || nextValue == 28) {
+		if (countValue == 27 || countValue == 28) {
 			step1Swap27();
 			step2Move28();
 			step3TripleCut();
 			step4Bottom();
 			step5Card();
 		}
-
-		// DEBUG print log for seeing the changes
-//		if (debugPrint) {
-//			System.out.println("Step5: " + deckKey.get(deckCount));
-//		}
-
-		// return the found number from the list
-		return deckKey.get(deckCount);
+		// else return the found number from the list
+		else {
+			step5Num = countValue;
+		}
 	}
 
 	// get the list needed for the string size of the message
@@ -309,7 +296,8 @@ public class KeyGeneration {
 			step2Move28();
 			step3TripleCut();
 			step4Bottom();
-			codeKey.addLast(step5Card());
+			step5Card();
+			codeKey.addLast(step5Num);
 
 			// DEBUG print log for seeing the changes
 			if (debugPrint) {

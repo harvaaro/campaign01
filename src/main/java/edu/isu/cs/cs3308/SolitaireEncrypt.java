@@ -19,6 +19,17 @@ public class SolitaireEncrypt {
 		// generate the key needed for coding
 		KeyGeneration theKey = new KeyGeneration(deckPath, codeMessage.size());
 
+		// get the linked list from the keygen
+		CircularlyLinkedList<Integer> codeKey = theKey.getCodeKey();
+
+		// final list that will store the coded message
+		CircularlyLinkedList<Integer> finalCode = new CircularlyLinkedList<>();
+
+		// string to store the coded message
+		String coded = "";
+
+
+
 		return decString;
 	}
 }

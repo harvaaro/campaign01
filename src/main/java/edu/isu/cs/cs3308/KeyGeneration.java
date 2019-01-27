@@ -21,6 +21,11 @@ public class KeyGeneration {
 	// this will be the final key to use for de/encoding
 	private CircularlyLinkedList<Integer> codeKey = new CircularlyLinkedList<>();
 
+	// return the list for use in other areas
+	public CircularlyLinkedList<Integer> getCodeKey() {
+		return codeKey;
+	}
+
 	// bool for whether to show the debug output
 	private boolean debugPrint = true;
 

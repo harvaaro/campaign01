@@ -2,6 +2,11 @@ package edu.isu.cs.cs3308;
 
 import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
 
+/**
+ * Method to process everything needed for the Solitaire Algorithm
+ *
+ * @author Aaron Harvey
+ */
 public class SolitaireAlgo {
 	// get the linked list from that to use for keygen
 	private CircularlyLinkedList<Integer> codeMessage = new CircularlyLinkedList<>();

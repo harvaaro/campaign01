@@ -18,7 +18,7 @@ public class CardString {
 	}
 
 	// bool for whether to show the debug output
-	private boolean debugPrint = true;
+	private boolean debugPrint = false;
 
 	// Constructor to get the string to edit
 	public CardString(String inputString) {

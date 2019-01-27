@@ -35,6 +35,7 @@ public class SolitaireAlgo {
 
 		// DEBUG print log for seeing the changes
 		if (debugPrint) {
+			System.out.println("strMessage:  " + numList2String(codeMessage));
 			System.out.print("codeMessage: ");
 			codeMessage.printList();
 			System.out.print("codeKey:     ");
@@ -58,7 +59,11 @@ public class SolitaireAlgo {
 		for (int i = 0; i < listSize; i++) {
 			if (doEncode) {
 				tempNum = codeMessage.removeFirst() + codeKey.removeFirst();
-				if (tempNum > 26) { tempNum -= 26; }
+				if (tempNum > 26) {
+					tempNum -= 26;
+//					tempNum = ((tempNum % 26) + 26) % 26;
+//					tempNum = tempNum % 26;
+				}
 			}
 			else {
 				// get the two numbers to do compare
@@ -77,13 +82,16 @@ public class SolitaireAlgo {
 			finalCode.addLast(tempNum);
 		}
 
+		String strCode = numList2String(finalCode);
+
 		// DEBUG print log for seeing the changes
 		if (debugPrint) {
 			System.out.print("finalCode:   ");
 			finalCode.printList();
+			System.out.println("strCode:     " + strCode + "\n");
 		}
 
-		return numList2String(finalCode);
+		return strCode;
 	}
 
 	/**
@@ -105,11 +113,6 @@ public class SolitaireAlgo {
 
 			// put that letter into the string
 			converted += numLetter;
-		}
-
-		// DEBUG print log for seeing the changes
-		if (debugPrint) {
-			System.out.println("converted:   " + converted);
 		}
 
 		// return the converted string

@@ -27,7 +27,7 @@ public class KeyGeneration {
 	}
 
 	// bool for whether to show the debug output
-	private boolean debugPrint = true;
+	private boolean debugPrint = false;
 
 	/**
 	 * Contrcustor to do all the appropriate methods

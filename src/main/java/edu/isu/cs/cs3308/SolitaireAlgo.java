@@ -39,6 +39,9 @@ public class SolitaireAlgo {
 	 * @param codeString The original message string to de/encode
 	 */
 	private void prepareCode(String codeString) {
+		// reset the final code list for the new key sets
+		finalCode = new CircularlyLinkedList<>();
+
 		// parse the message as needed for coding
 		CardString theMessage = new CardString(codeString);
 

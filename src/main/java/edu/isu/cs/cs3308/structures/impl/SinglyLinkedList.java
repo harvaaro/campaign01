@@ -25,7 +25,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	 * @param element the element to check
 	 * @return true if not null, and false if null
 	 */
-	private boolean checkElement(E element) {
+	protected boolean checkElement(E element) {
 	    // may eventually throw an error or some message
         // but currently am just doing an error check
 	    return (element != null) ? true : false;
@@ -36,7 +36,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	 * @param index the index to check
 	 * @return true if valid index, and false if invalid
 	 */
-	private boolean checkIndex(int index) {
+	protected boolean checkIndex(int index) {
 	    return (index < size && index >= 0) ? true : false;
     }
 
@@ -46,7 +46,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	 * If the size of the list is 0 then set head and tail to null
 	 * @param theNode The node to set if its the only one in the list
 	 */
-	private void singleHeadTail(Node<E> theNode) {
+	protected void singleHeadTail(Node<E> theNode) {
 		// if theNode is the only one in the list
 		if (size == 1) {
 			head = theNode;
@@ -67,7 +67,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	 * @param index The index within the list
 	 * @return The node retrieved from the list
 	 */
-    private Node<E> getNode(int index) {
+	protected Node<E> getNode(int index) {
 		// get current head node to start from
 		Node<E> seekNode = head;
 
@@ -84,14 +84,14 @@ public class SinglyLinkedList<E> implements List<E> {
 	 * Adds 1 to the size value.
 	 * I put this as a function if I ever needed to do other checks with it
 	 */
-	private void addSize() {
+	protected void addSize() {
 		size++;
 	}
 
 	/**
 	 * Subtracts 1 from the size value, and ensure it cannot go below 0
 	 */
-	private void subSize() {
+	protected void subSize() {
 		size--;
 
 		if (size < 0) {
@@ -103,7 +103,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	 * ADDED to allow making a circular easy
 	 * Will verify the tail goes to null for the SLL
 	 */
-	public void verifyTail() {
+	protected void verifyTail() {
 		tail.setNext(null);
 	}
 
@@ -149,6 +149,10 @@ public class SinglyLinkedList<E> implements List<E> {
 
 				// increment size
 				addSize();
+
+				// ADDED to make circular list easier
+				// fix the head and tail if single node in list
+				singleHeadTail(lastNode);
 			}
         	// else if size is 0 just add first
         	else {
@@ -338,6 +342,11 @@ public class SinglyLinkedList<E> implements List<E> {
 
 				// null out the next of the removeNode
 				removeNode.setNext(null);
+
+				// ADDED to fix issue with SLL that I noticed when doing CLL
+				if (index == size-1) {
+					tail = prevNode;
+				}
 
 				// decrement size
 				subSize();

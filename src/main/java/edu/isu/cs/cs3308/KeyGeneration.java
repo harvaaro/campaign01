@@ -25,7 +25,11 @@ public class KeyGeneration {
 	public KeyGeneration(String deckLocation) {
 		deckSplit(deckLocation);
 		step1Swap27();
+		step2Move28();
 		deckKey.printList();
+		System.out.println("Size: " + deckKey.size());
+		System.out.println("First: " + deckKey.first());
+		System.out.println("Last: " + deckKey.last());
 	}
 
 	/**
@@ -55,26 +59,45 @@ public class KeyGeneration {
 	}
 
 	/**
+	 * Swap an element with the one following it in the list
+	 * @param lookup what int to lookup in the list
+	 */
+	private void swapWithNext(int lookup) {
+		// if a valid number then process
+		if (lookup >= 0 && lookup <= 28) {
+			// get the index of the found number
+			int indexLookup = deckKey.indexOf(lookup);
+
+			// check if following as at end of the list
+			if (indexLookup+1 == deckKey.size()) {
+				// remove both values
+				int dataBegin = deckKey.removeFirst();
+				int dataLookup = deckKey.removeLast();
+
+				// insert in opposite spots
+				deckKey.addLast(dataBegin);
+				deckKey.addFirst(dataLookup);
+			}
+			// else not the end so can just move one
+			else {
+				// remove the number from the list
+				int dataLookup = deckKey.remove(indexLookup);
+
+				// insert back at the following position
+				deckKey.insert(dataLookup, indexLookup+1);
+			}
+		}
+	}
+
+	/**
 	 * Swap the number 27 with the number before it in the list
 	 */
 	private void step1Swap27() {
-		// get the index of the number before 27
-		int priorIdx = deckKey.indexOf(27)-1;
-
-		// if that number is -1 then get the end of the list
-		if (priorIdx == -1) {
-			priorIdx = deckKey.size()-1;
-		}
-
-		// remove that prior number from the list
-		// this moves the 27 to its spot
-		int priorNum = deckKey.remove(priorIdx);
-
-		// now insert the old number where the 27 was
-		deckKey.insert(priorNum, priorIdx+1);
+		swapWithNext(27);
 	}
 
 	private void step2Move28() {
-
+		swapWithNext(28);
+		swapWithNext(28);
 	}
 }

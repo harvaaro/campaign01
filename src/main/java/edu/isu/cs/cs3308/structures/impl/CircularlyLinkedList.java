@@ -13,7 +13,7 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
 	 * will always point back to the head to keep it circular
 	 */
 	@Override
-	public void verifyTail() {
+	protected void verifyTail() {
 		tail.setNext(head);
 	}
 }

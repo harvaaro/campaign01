@@ -61,6 +61,7 @@ public class SolitaireAlgo {
 		// size of the list to code
 		int listSize = codeKey.size();
 
+		// iterate for the list size until all values have been coded
 		for (int i = 0; i < listSize; i++) {
 			if (doEncode) {
 				tempNum = codeMessage.removeFirst() + codeKey.removeFirst();
@@ -87,6 +88,7 @@ public class SolitaireAlgo {
 			finalCode.addLast(tempNum);
 		}
 
+		// the final string of coded number
 		String strCode = numList2String(finalCode);
 
 		// DEBUG print log for seeing the changes
@@ -96,6 +98,7 @@ public class SolitaireAlgo {
 			System.out.println("strCode:     " + strCode + "\n");
 		}
 
+		// return the string of code
 		return strCode;
 	}
 

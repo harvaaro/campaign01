@@ -59,7 +59,9 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 
 		// ADDED to make circular list easier
-		verifyTail();
+		if (size > 0) {
+			verifyTail();
+		}
 	}
 
 	/**

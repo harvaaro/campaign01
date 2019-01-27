@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
+import edu.isu.cs.cs3308.structures.impl.SinglyLinkedList;
 
 /**
  * A class to do all the keygeneration needed for
@@ -26,6 +27,7 @@ public class KeyGeneration {
 		deckSplit(deckLocation);
 		step1Swap27();
 		step2Move28();
+		step3TripleCut();
 		deckKey.printList();
 		System.out.println("Size: " + deckKey.size());
 		System.out.println("First: " + deckKey.first());
@@ -90,14 +92,91 @@ public class KeyGeneration {
 	}
 
 	/**
-	 * Swap the number 27 with the number before it in the list
+	 * Move the number 27 up 1 place in the list
 	 */
 	private void step1Swap27() {
 		swapWithNext(27);
 	}
 
+	/**
+	 * Move the number 28 up 2 places in the list
+	 */
 	private void step2Move28() {
 		swapWithNext(28);
 		swapWithNext(28);
+	}
+
+	private void step3TripleCut() {
+		// get the locations of both jokers
+		int index27 = deckKey.indexOf(27);
+		int index28 = deckKey.indexOf(28);
+
+		// joker indices to use for the swap
+		int joker1, joker2;
+
+		// determine which is first in the list
+		if (index27 < index28) {
+			joker1 = index27;
+			joker2 = index28;
+		}
+		else {
+			joker1 = index28;
+			joker2 = index27;
+		}
+
+		// bool for whether the jokers are at the ends
+		boolean joker2end = false;
+		boolean joker1top = false;
+
+		// determine if the jokers are at either end
+		if (joker2 == deckKey.size()-1) {
+			joker2end = true;
+		}
+		if (joker1 == 0) {
+			joker1top = true;
+		}
+
+		// temporary lists to store the sections that are to be swapped
+		SinglyLinkedList<Integer> cut2End = new SinglyLinkedList<>();
+		SinglyLinkedList<Integer> cut1Top = new SinglyLinkedList<>();
+
+		// if joker2 is not at the end
+		if (joker2end == false) {
+			int deckSize = deckKey.size();
+			// get the end cut first
+			for (int i = joker2 + 1; i < deckSize; i++) {
+				cut2End.addFirst(deckKey.removeLast());
+			}
+		}
+
+		// if joker1 is not at the beginning
+		if (joker1top == false) {
+			// get the top cut next
+			for (int i = 0; i < joker1; i++) {
+				cut1Top.addLast(deckKey.removeFirst());
+			}
+		}
+
+		// put the sections back in their correct spots
+		// put end to top
+		if (joker2end == false) {
+			// get size needed for looping
+			int cut2Size = cut2End.size();
+
+			// add all of the old end to the top
+			for (int i = 0; i < cut2Size; i++) {
+				deckKey.addFirst(cut2End.removeLast());
+			}
+		}
+		// put top to end
+		if (joker1top == false) {
+			// get size needed for looping
+			int cut1Size = cut1Top.size();
+
+			// add all of the old end to the top
+			for (int i = 0; i < cut1Size; i++) {
+				deckKey.addLast(cut1Top.removeFirst());
+			}
+		}
 	}
 }

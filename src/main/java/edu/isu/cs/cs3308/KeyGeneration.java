@@ -24,6 +24,7 @@ public class KeyGeneration {
 	 */
 	public KeyGeneration(String deckLocation) {
 		deckSplit(deckLocation);
+		step1Swap27();
 		deckKey.printList();
 	}
 
@@ -36,14 +37,11 @@ public class KeyGeneration {
 	 * https://www.journaldev.com/17794/java-files-nio-files-class
 	 * @throws IOException
 	 */
-	public void deckSplit(String deckPath) {
-		// temporary list of strings to then convert to my CLL
-		List<String> deckList = null;
-
+	private void deckSplit(String deckPath) {
 		// read from the file provided by deckPath
 		try {
 			// get the string of numbers line from the deck txt
-			deckList = Files.readAllLines(Paths.get(deckPath));
+			List<String> deckList = Files.readAllLines(Paths.get(deckPath));
 
 			// split out the values into a Circularly Linked List
 			for (String deckNum: deckList.get(0).split(" ")) {
@@ -54,5 +52,29 @@ public class KeyGeneration {
 		catch (IOException ex){
 			System.out.println("IOExcption: " + ex);
 		}
+	}
+
+	/**
+	 * Swap the number 27 with the number before it in the list
+	 */
+	private void step1Swap27() {
+		// get the index of the number before 27
+		int priorIdx = deckKey.indexOf(27)-1;
+
+		// if that number is -1 then get the end of the list
+		if (priorIdx == -1) {
+			priorIdx = deckKey.size()-1;
+		}
+
+		// remove that prior number from the list
+		// this moves the 27 to its spot
+		int priorNum = deckKey.remove(priorIdx);
+
+		// now insert the old number where the 27 was
+		deckKey.insert(priorNum, priorIdx+1);
+	}
+
+	private void step2Move28() {
+
 	}
 }

@@ -41,6 +41,7 @@ public class KeyGeneration {
 		step2Move28();
 		step3TripleCut();
 		step4Bottom();
+		step5Card();
 
 		// DEBUG print log for seeing the changes
 		if (debugPrint) {
@@ -219,18 +220,26 @@ public class KeyGeneration {
 		}
 	}
 
+	/**
+	 * Removes the bottom value and
+	 * Shifts top values to the bottom
+	 * In an amount matching the removed value
+	 */
 	private void step4Bottom() {
 		// get the bottom value of the list
 		int deckLast = deckKey.removeLast();
 
+		// counter for the values to move
+		int deckCount = deckLast;
+
 		// if the last value is either joker set to 27
-		if (deckLast == 27 || deckLast == 28) {
-			deckLast = 27;
+		if (deckCount == 27 || deckCount == 28) {
+			deckCount = 27;
 		}
 
 		// shift values from top to bottom in the
 		// quantity of what was on the bottom
-		for (int i = 0; i < deckLast; i++) {
+		for (int i = 0; i < deckCount; i++) {
 			deckKey.addLast(deckKey.removeFirst());
 		}
 
@@ -242,5 +251,41 @@ public class KeyGeneration {
 			System.out.print("Step4: ");
 			deckKey.printList();
 		}
+	}
+
+	private int step5Card() {
+		// get the first value of the list
+		int deckFirst = deckKey.first();
+
+		// counter for how many to search
+		int deckCount = deckFirst;
+
+		// if the first value is either joker set to 27
+		if (deckCount == 27 || deckCount == 28) {
+			deckCount = 27;
+		}
+
+		// put that value back at the beginning
+//		deckKey.addFirst(deckFirst);
+
+		// get the next value from the count
+		int nextValue = deckKey.get(deckCount+1);
+
+		// check to see if it is a joker or not
+		if (nextValue == 27 || nextValue == 28) {
+			step1Swap27();
+			step2Move28();
+			step3TripleCut();
+			step4Bottom();
+			step5Card();
+		}
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.println("Step5: " + deckKey.get(deckCount));
+		}
+
+		// return the found number from the list
+		return deckKey.get(deckCount);
 	}
 }

@@ -61,11 +61,26 @@ public class SolitaireAlgo {
 				if (tempNum > 26) { tempNum -= 26; }
 			}
 			else {
-				tempNum = codeMessage.removeFirst() - codeKey.removeFirst();
-				if (tempNum > 26) { tempNum += 26; }
+				// get the two numbers to do compare
+				int tempUpper = codeMessage.removeFirst();
+				int tempLower = codeKey.removeFirst();
+
+				// do adjustment to upper number if needed
+				if (tempUpper <= tempLower) {
+					tempUpper += 26;
+				}
+
+				// now subtract to get value
+				tempNum = tempUpper - tempLower;
 			}
 
 			finalCode.addLast(tempNum);
+		}
+
+		// DEBUG print log for seeing the changes
+		if (debugPrint) {
+			System.out.print("finalCode:   ");
+			finalCode.printList();
 		}
 
 		return numList2String(finalCode);

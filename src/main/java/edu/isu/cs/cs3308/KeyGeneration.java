@@ -231,7 +231,7 @@ public class KeyGeneration {
 		int deckCount = deckLast;
 
 		// if the last value is either joker set to 27
-		if (deckCount == 27 || deckCount == 28) {
+		if (deckCount == 28) {
 			deckCount = 27;
 		}
 
@@ -268,7 +268,7 @@ public class KeyGeneration {
 		int deckCount = deckFirst;
 
 		// if the first value is either joker set to 27
-		if (deckCount == 27 || deckCount == 28) {
+		if (deckCount == 28) {
 			deckCount = 27;
 		}
 

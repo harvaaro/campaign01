@@ -34,7 +34,7 @@ public class KeyGeneration {
 	 * to get the needed generated key for de/encrypt
 	 * @param deckLocation the deck file path
 	 */
-	public KeyGeneration(String deckLocation, int secretSize) {
+	public KeyGeneration(String deckLocation) {
 		// split the file to a usable list
 		deckSplit(deckLocation);
 
@@ -44,9 +44,6 @@ public class KeyGeneration {
 			System.out.print("Prior: ");
 			deckKey.printList();
 		}
-
-		// run all the steps to generate a code key
-		generateCodeKey(secretSize);
 	}
 
 	/**
@@ -293,7 +290,7 @@ public class KeyGeneration {
 	}
 
 	// get the list needed for the string size of the message
-	private void generateCodeKey(int codeSize) {
+	public void generateCodeKey(int codeSize) {
 		// iterate through calling step 5 until
 		// the code list is big enough
 		for (int i = 0; i < codeSize; i++) {

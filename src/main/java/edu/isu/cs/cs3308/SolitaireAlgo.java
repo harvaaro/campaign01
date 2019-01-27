@@ -8,6 +8,9 @@ import edu.isu.cs.cs3308.structures.impl.CircularlyLinkedList;
  * @author Aaron Harvey
  */
 public class SolitaireAlgo {
+	// the generator for the coding key
+	private KeyGeneration theKey;
+
 	// get the linked list from that to use for keygen
 	private CircularlyLinkedList<Integer> codeMessage = new CircularlyLinkedList<>();
 
@@ -21,11 +24,21 @@ public class SolitaireAlgo {
 	private boolean debugPrint = true;
 
 	/**
-	 * Constructor for setting everything up for the Solitaire Algorithm
-	 * @param codeString The original message string to de/encode
+	 * Constructor for setting up the generator for the Solitaire Algorithm
+	 *
 	 * @param deckPath The path to the file that has the deck key
 	 */
-	public SolitaireAlgo(String codeString, String deckPath) {
+	public SolitaireAlgo(String deckPath) {
+		// generate the key needed for coding
+		theKey = new KeyGeneration(deckPath);
+	}
+
+	/**
+	 * Create all of the necesarry lists to process the coding
+	 *
+	 * @param codeString The original message string to de/encode
+	 */
+	private void prepareCode(String codeString) {
 		// parse the message as needed for coding
 		CardString theMessage = new CardString(codeString);
 
@@ -33,7 +46,7 @@ public class SolitaireAlgo {
 		codeMessage = theMessage.getCardList();
 
 		// generate the key needed for coding
-		KeyGeneration theKey = new KeyGeneration(deckPath, codeMessage.size());
+		theKey.generateCodeKey(codeMessage.size());
 
 		// get the linked list from the keygen
 		codeKey = theKey.getCodeKey();
@@ -54,7 +67,10 @@ public class SolitaireAlgo {
 	 *
 	 * @param doEncode True = Encrypt and False = Decrypt
 	 */
-	public String encode(boolean doEncode) {
+	public String encode(boolean doEncode, String codeString) {
+		// prepare all the necessary lists and values
+		prepareCode(codeString);
+
 		// temp number to add to the final list
 		int tempNum = -1;
 
@@ -64,17 +80,15 @@ public class SolitaireAlgo {
 		// iterate for the list size until all values have been coded
 		for (int i = 0; i < listSize; i++) {
 			if (doEncode) {
-				tempNum = codeMessage.removeFirst() + codeKey.removeFirst();
+				tempNum = codeMessage.removeFirst() + codeKey.get(i);
 				if (tempNum > 26) {
 					tempNum -= 26;
-//					tempNum = ((tempNum % 26) + 26) % 26;
-//					tempNum = tempNum % 26;
 				}
 			}
 			else {
 				// get the two numbers to do compare
 				int tempUpper = codeMessage.removeFirst();
-				int tempLower = codeKey.removeFirst();
+				int tempLower = codeKey.get(i);
 
 				// do adjustment to upper number if needed
 				if (tempUpper <= tempLower) {

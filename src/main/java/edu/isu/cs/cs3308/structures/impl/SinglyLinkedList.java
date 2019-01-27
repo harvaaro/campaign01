@@ -57,6 +57,9 @@ public class SinglyLinkedList<E> implements List<E> {
 			head = null;
 			tail = null;
 		}
+
+		// ADDED to make circular list easier
+		verifyTail();
 	}
 
 	/**
@@ -83,9 +86,6 @@ public class SinglyLinkedList<E> implements List<E> {
 	 */
 	private void addSize() {
 		size++;
-
-		// ADDED to make circular list easier
-		verifyTail();
 	}
 
 	/**
@@ -97,9 +97,6 @@ public class SinglyLinkedList<E> implements List<E> {
 		if (size < 0) {
 			size = 0;
 		}
-
-		// ADDED to make circular list easier
-		verifyTail();
 	}
 
 	/**

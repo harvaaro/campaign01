@@ -17,8 +17,14 @@ public class KeyGeneration {
 	// create a new CLL to store the deck values that will be the key
 	private CircularlyLinkedList<Integer> deckKey = new CircularlyLinkedList<>();
 
+	/**
+	 * Contrcustor to do all the appropriate methods
+	 * to get the needed generated key for de/encrypt
+	 * @param deckLocation the deck file path
+	 */
 	public KeyGeneration(String deckLocation) {
 		deckSplit(deckLocation);
+		deckKey.printList();
 	}
 
 	/**
@@ -32,39 +38,21 @@ public class KeyGeneration {
 	 */
 	public void deckSplit(String deckPath) {
 		// temporary list of strings to then convert to my CLL
-		List<String> deckList;
+		List<String> deckList = null;
 
 		// read from the file provided by deckPath
 		try {
 			// get the string of numbers line from the deck txt
 			deckList = Files.readAllLines(Paths.get(deckPath));
+
+			// split out the values into a Circularly Linked List
+			for (String deckNum: deckList.get(0).split(" ")) {
+				deckKey.addLast(Integer.parseInt(deckNum));
+			}
 		}
 		// catch any IO exceptions thrown
 		catch (IOException ex){
 			System.out.println("IOExcption: " + ex);
 		}
-
-
-
-//		// variable for reading the deck file in
-//		FileReader readDeck = null;
-//
-//		// try reading in the file and parsing
-//		try {
-//			readDeck = new FileReader(deckPath);
-//
-//			// temp string for the deck line;
-//			String tempLine = readDeck.toString();
-//
-//			System.out.println(tempLine);
-//		}
-//		// catch exceptions that have occurred
-//		catch (IOException ex){
-//			System.out.println("IOExcption: " + ex);
-//		}
-//		// regardless close the file reading at end
-//		finally {
-//			readDeck.close();
-//		}
 	}
 }

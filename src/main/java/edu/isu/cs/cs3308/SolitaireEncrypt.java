@@ -15,7 +15,6 @@ public class SolitaireEncrypt {
 	String execute(String decString) {
 		KeyGeneration theKey = new KeyGeneration(deckPath);
 
-
 		System.out.println("decString: " + decString);
 		return decString;
 	}

@@ -1,9 +1,5 @@
 package edu.isu.cs.cs3308;
 
-import edu.isu.cs.cs3308.KeyGeneration;
-
-import java.io.IOException;
-
 public class SolitaireEncrypt {
 	private String deckPath;
 
@@ -12,9 +8,9 @@ public class SolitaireEncrypt {
 	}
 
 	String execute(String decString) {
+		CardString theMessage = new CardString(decString);
 		KeyGeneration theKey = new KeyGeneration(deckPath);
 
-		System.out.println("decString: " + decString);
 		return decString;
 	}
 }

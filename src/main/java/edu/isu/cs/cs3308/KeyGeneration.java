@@ -18,6 +18,7 @@ public class KeyGeneration {
 	// create a new CLL to store the deck values that will be the key
 	private CircularlyLinkedList<Integer> deckKey = new CircularlyLinkedList<>();
 
+	// bool for whether to show the debug output
 	boolean debugPrint = true;
 
 	/**
@@ -36,12 +37,12 @@ public class KeyGeneration {
 			deckKey.printList();
 		}
 
-		// run the 5 steps
+		// run the 4 steps
 		step1Swap27();
 		step2Move28();
 		step3TripleCut();
 		step4Bottom();
-		step5Card();
+		// step 5 will be called when we know what size we need
 
 		// DEBUG print log for seeing the changes
 		if (debugPrint) {
@@ -253,6 +254,12 @@ public class KeyGeneration {
 		}
 	}
 
+	/**
+	 * Will find a number in the list with index of first value
+	 * That number cannot be a joker so will only be a 1-26 value
+	 *
+	 * @return the card to use for the keystream
+	 */
 	private int step5Card() {
 		// get the first value of the list
 		int deckFirst = deckKey.first();
@@ -282,7 +289,7 @@ public class KeyGeneration {
 
 		// DEBUG print log for seeing the changes
 		if (debugPrint) {
-			System.out.println("Step5: " + deckKey.get(deckCount));
+//			System.out.println("Step5: " + deckKey.get(deckCount));
 		}
 
 		// return the found number from the list
